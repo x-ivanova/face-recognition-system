@@ -19,14 +19,9 @@ const routes = [
         component: () => import('pages/AddPerson.vue'),
       },
       {
-        path: '/remove-person',
-        name: 'remove-person',
-        component: () => import('pages/RemovePerson.vue'),
-      },
-      {
-        path: '/find-person',
-        name: 'find-person',
-        component: () => import('pages/FindPerson.vue'),
+        path: '/all-person',
+        name: 'all-person',
+        component: () => import('pages/AllPerson.vue'),
       },
     ],
   },

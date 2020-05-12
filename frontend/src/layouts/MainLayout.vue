@@ -72,16 +72,10 @@ export default {
           route: { name: 'add-person' },
         },
         {
-          title: 'Remove person',
-          caption: 'remove person info from database',
-          icon: 'person_add_disabled',
-          route: { name: 'remove-person' },
-        },
-        {
-          title: 'Find person',
-          caption: 'find person info in database',
-          icon: 'image_search',
-          route: { name: 'find-person' },
+          title: 'All persons',
+          caption: 'all persons info from database',
+          icon: 'people',
+          route: { name: 'all-person' },
         },
       ],
     };

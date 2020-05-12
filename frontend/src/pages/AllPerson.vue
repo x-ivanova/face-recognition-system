@@ -38,6 +38,7 @@
           <q-btn
             color="red"
             icon="delete"
+            @click="deletePerson(props.row.id)"
             >
             <q-tooltip>Delete person from database</q-tooltip>
           </q-btn>
@@ -48,6 +49,8 @@
 </template>
 
 <script>
+import { Notify } from 'quasar';
+
 export default {
   name: 'AllPerson',
   data() {
@@ -58,7 +61,7 @@ export default {
           name: 'photo',
           label: 'Photo',
           align: 'left',
-          field: (row) => row.photo,
+          field: (row) => row.url,
         },
         {
           name: 'name',
@@ -110,27 +113,31 @@ export default {
           sortable: false,
         },
       ],
-      data: [
-        {
-          name: 'Natasha',
-          surname: 'Ivanova',
-          photo: 'https://sun9-20.userapi.com/c852228/v852228414/152542/5FBUDQaGM6E.jpg',
-          phone: '+7 999 121 59 01',
-          job: 'STM labs',
-          position: 'Junior frontend',
-          department: 'MTS DataCrawler',
-        },
-        {
-          name: 'Alex',
-          surname: 'Lyashuk',
-          photo: 'https://sun9-28.userapi.com/Iv7KIbJ0Sg-3QYfFOMrlvaWXDgMPchukHgw6Zw/NONl8XtJicI.jpg',
-          phone: '+7 999 121 75 00',
-          job: 'Xperience.ai',
-          position: 'Sexy man',
-          department: 'Occipital',
-        },
-      ],
+      data: [],
     };
+  },
+  created() {
+    this.getData();
+  },
+  methods: {
+    getData() {
+      this.$api.get('/static/storage.json')
+        .then((response) => {
+          this.data = response.data.users;
+        });
+    },
+    deletePerson(id) {
+      this.$api.get(`/api/remove?id=${id}`)
+        .then(() => {
+          Notify.create({
+            message: 'Success',
+            icon: 'thumb_up',
+            color: 'positive',
+            position: 'bottom-right',
+          });
+          this.getData();
+        });
+    },
   },
 };
 </script>

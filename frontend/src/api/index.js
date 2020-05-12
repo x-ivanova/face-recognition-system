@@ -3,7 +3,7 @@ import { Notify } from 'quasar';
 
 
 const api = axios.create({
-  baseURL: 'http://192.168.88.109/api',
+  baseURL: 'http://192.168.88.109/',
 });
 
 api.interceptors.response.use((response) => response, (error) => {

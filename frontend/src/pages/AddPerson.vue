@@ -115,7 +115,11 @@ export default {
       uploadData.append('name', this.name);
       uploadData.append('surname', this.surname);
       uploadData.append('file', this.photo);
-      this.$api.post('/add', uploadData)
+      if (this.phone) uploadData.append('phone', this.phone);
+      if (this.job) uploadData.append('job', this.job);
+      if (this.department) uploadData.append('department', this.department);
+      if (this.position) uploadData.append('position', this.position);
+      this.$api.post('api/add', uploadData)
         .then(() => {
           Notify.create({
             message: 'Success',
@@ -123,6 +127,13 @@ export default {
             color: 'positive',
             position: 'bottom-right',
           });
+          this.name = '';
+          this.surname = '';
+          this.photo = null;
+          this.phone = '';
+          this.job = '';
+          this.department = '';
+          this.position = '';
         })
         .catch(() => {
 

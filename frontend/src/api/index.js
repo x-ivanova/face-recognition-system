@@ -3,14 +3,13 @@ import { Notify } from 'quasar';
 
 
 const api = axios.create({
-  baseURL: 'http://192.168.88.109:5000/',
+  baseURL: 'http://192.168.88.109:9000/',
 });
 
 api.interceptors.response.use((response) => response, (error) => {
   if (error.toString() !== 'Cancel') {
     Notify.create({
       message: (error.response.data && error.response.data.message) || `${error.response.status}: ${error.response.statusText}`,
-      icon: 'mdi-alert-circle',
       color: 'negative',
       position: 'bottom-right',
     });

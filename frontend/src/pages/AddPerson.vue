@@ -1,5 +1,6 @@
 <template>
   <div class="q-pa-sm">
+    <div class="text-h5 q-pa-sm">Add person</div>
     <div
       class="q-gutter-md"
       style="max-width: 300px"
@@ -64,7 +65,7 @@ export default {
         .then(() => {
           Notify.create({
             message: 'Success',
-            icon: 'mdi-thumb-up',
+            icon: 'thumb_up',
             color: 'positive',
             position: 'bottom-right',
           });

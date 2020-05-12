@@ -1,46 +1,96 @@
 <template>
   <div class="q-pa-sm">
     <div class="text-h5 q-pa-sm">Add person</div>
-    <div
-      class="q-gutter-md"
-      style="max-width: 300px"
-    >
-    <q-input
-      filled
-      v-model="name"
-      label="Name"
-      hint="Required field"
-      :rules="[ val => val.length > 0 || 'Required field']"
-    />
-    <q-input
-      filled
-      v-model="surname"
-      label="Surname"
-      hint="Required field"
-      :rules="[ val => val.length > 0 || 'Required field']"
-    />
+    <div class="row q-mb-sm">
+      <q-input
+        filled
+        v-model="name"
+        label="Name"
+        class="q-pa-sm"
+        style="width: 300px"
+        hint="Required field"
+        :rules="[ val => val.length > 0 || 'Required field']"
+      />
+      <q-input
+        filled
+        v-model="surname"
+        label="Surname"
+        class="q-pa-sm"
+        style="width: 300px"
+        hint="Required field"
+        :rules="[ val => val.length > 0 || 'Required field']"
+      />
+    </div>
     <q-file
       filled
       v-model="photo"
       label="Photo"
-      class="ellipsis"
+      class="ellipsis q-pa-sm"
       counter
       accept=".jpg, image/*"
       hint="Required field"
-      style="max-width: 285px"
+      style="max-width: 600px"
     >
       <template v-slot:prepend>
         <q-icon name="attach_file" />
       </template>
     </q-file>
+    <div class="row q-mb-sm">
+      <q-input
+        filled
+        v-model="phone"
+        label="Phone"
+        class="q-pa-sm"
+        style="width: 300px"
+      >
+        <template v-slot:prepend>
+          <q-icon name="phone" />
+        </template>
+      </q-input>
+      <q-input
+        filled
+        v-model="job"
+        label="Job"
+        class="q-pa-sm"
+        style="width: 300px"
+      >
+        <template v-slot:prepend>
+          <q-icon name="work" />
+        </template>
+      </q-input>
+    </div>
+    <div class="row q-mb-sm">
+      <q-input
+        filled
+        v-model="department"
+        label="Department"
+        class="q-pa-sm"
+        style="width: 300px"
+      >
+        <template v-slot:prepend>
+          <q-icon name="device_hub" />
+        </template>
+      </q-input>
+      <q-input
+        filled
+        v-model="position"
+        label="Position"
+        class="q-pa-sm"
+        style="width: 300px"
+      >
+        <template v-slot:prepend>
+          <q-icon name="person" />
+        </template>
+      </q-input>
+    </div>
     <q-btn
       color="primary"
+      class="q-ml-sm"
       label="Add person"
       :disable="!isEnable()"
       @click="addPerson()"
     />
     </div>
-  </div>
 </template>
 
 <script>
@@ -53,6 +103,10 @@ export default {
       name: '',
       surname: '',
       photo: null,
+      phone: '',
+      job: '',
+      department: '',
+      position: '',
     };
   },
   methods: {

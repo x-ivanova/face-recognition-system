@@ -65,6 +65,24 @@ export default {
           icon: 'videocam',
           route: { name: 'camera' },
         },
+        {
+          title: 'Add person',
+          caption: 'add person info to database',
+          icon: 'person_add',
+          route: { name: 'add-person' },
+        },
+        {
+          title: 'Remove person',
+          caption: 'remove person info from database',
+          icon: 'person_add_disabled',
+          route: { name: 'remove-person' },
+        },
+        {
+          title: 'Find person',
+          caption: 'find person info in database',
+          icon: 'image_search',
+          route: { name: 'find-person' },
+        },
       ],
     };
   },

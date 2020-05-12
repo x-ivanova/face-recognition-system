@@ -13,6 +13,21 @@ const routes = [
         name: 'camera',
         component: () => import('pages/Index.vue'),
       },
+      {
+        path: '/add-person',
+        name: 'add-person',
+        component: () => import('pages/AddPerson.vue'),
+      },
+      {
+        path: '/remove-person',
+        name: 'remove-person',
+        component: () => import('pages/RemovePerson.vue'),
+      },
+      {
+        path: '/find-person',
+        name: 'find-person',
+        component: () => import('pages/FindPerson.vue'),
+      },
     ],
   },
 ];

@@ -9,7 +9,6 @@
         class="q-pa-sm"
         style="width: 300px"
         hint="Required field"
-        :rules="[ val => val.length > 0 || 'Required field']"
       />
       <q-input
         filled
@@ -18,7 +17,6 @@
         class="q-pa-sm"
         style="width: 300px"
         hint="Required field"
-        :rules="[ val => val.length > 0 || 'Required field']"
       />
     </div>
     <q-file

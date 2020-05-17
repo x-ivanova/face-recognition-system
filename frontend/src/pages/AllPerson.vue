@@ -14,35 +14,117 @@
           </template>
         </q-input>
       </template>
-      <template
-        v-slot:body-cell-photo="props"
-      >
+      <template v-slot:body="props">
+        <q-tr :props="props">
         <q-td
+          key="photo"
           auto-width
           :props="props"
         >
           <q-img
-            :src="props.value"
+            :src="props.row.url"
             style="height: 140px;"
             :ratio="1"
           />
         </q-td>
-      </template>
-      <template
-        v-slot:body-cell-actions="props"
-      >
+          <q-td
+            key="name"
+            :props="props"
+          >
+            {{ props.row.name }}
+          </q-td>
+          <q-td
+            key="surname"
+            :props="props"
+          >
+            {{ props.row.surname }}
+          </q-td>
+          <q-td
+            key="phone"
+            :props="props">
+            {{ props.row.phone }}
+            <q-popup-edit
+              v-model="props.row.phone"
+              title="Update phone"
+              buttons
+              persistent
+            >
+              <q-input
+                v-model="props.row.phone"
+                dense
+                autofocus
+                hint="Use buttons to close"
+              />
+            </q-popup-edit>
+          </q-td>
+          <q-td
+            key="job"
+            :props="props">
+            {{ props.row.job }}
+            <q-popup-edit
+              v-model="props.row.job"
+              title="Update job"
+              buttons
+              persistent>
+              <q-input
+                v-model="props.row.job"
+                dense
+                autofocus
+                hint="Use buttons to close"
+              />
+            </q-popup-edit>
+          </q-td>
+          <q-td
+            key="department"
+            :props="props">
+            {{ props.row.department }}
+            <q-popup-edit
+              v-model="props.row.department"
+              title="Update department"
+              buttons
+              persistent>
+              <q-input
+                v-model="props.row.department"
+                dense
+                autofocus
+                hint="Use buttons to close"
+              />
+            </q-popup-edit>
+          </q-td>
+          <q-td
+            key="position"
+            :props="props">
+            {{ props.row.position }}
+            <q-popup-edit
+              v-model="props.row.position"
+              title="Update position"
+              buttons
+              persistent>
+              <q-input v-model="props.row.position" dense autofocus hint="Use buttons to close" />
+            </q-popup-edit>
+          </q-td>
         <q-td
+          key="actions"
           auto-width
           :props="props"
         >
           <q-btn
+            class="q-mr-sm"
+            color="green"
+            icon="save"
+            @click="saveChanges(props.row)"
+          >
+            <q-tooltip>Edit person information from database</q-tooltip>
+          </q-btn>
+          <q-btn
             color="red"
             icon="delete"
             @click="deletePerson(props.row.id)"
-            >
+          >
             <q-tooltip>Delete person from database</q-tooltip>
           </q-btn>
         </q-td>
+        </q-tr>
       </template>
     </q-table>
   </div>
@@ -83,31 +165,31 @@ export default {
         },
         {
           name: 'phone',
-          label: 'Phone',
+          label: 'Phone (editable)',
           align: 'left',
           field: (row) => row.phone,
         },
         {
           name: 'job',
-          label: 'Job',
+          label: 'Job (editable)',
           align: 'left',
           field: (row) => row.job,
         },
         {
           name: 'department',
-          label: 'Department',
+          label: 'Department (editable)',
           align: 'left',
           field: (row) => row.department,
         },
         {
           name: 'position',
-          label: 'Position',
+          label: 'Position (editable)',
           align: 'left',
           field: (row) => row.position,
         },
         {
           name: 'actions',
-          label: 'Delete person',
+          label: 'Actions',
           align: 'center',
           field: 'actions',
           sortable: false,
@@ -127,16 +209,34 @@ export default {
         });
     },
     deletePerson(id) {
-      this.$api.get(`/api/remove?id=${id}`)
+      this.$api.remove('/api/remove', id)
         .then(() => {
-          Notify.create({
-            message: 'Success',
-            icon: 'thumb_up',
-            color: 'positive',
-            position: 'bottom-right',
-          });
+          this.notify('Success');
+        })
+        .finally(() => {
           this.getData();
         });
+    },
+    saveChanges(obj) {
+      const data = new FormData();
+      Object.keys(obj).forEach((key) => {
+        data.append(key, obj[key]);
+      });
+      this.$api.put('/api/update', obj.id, data)
+        .then(() => {
+          this.notify('Success');
+        })
+        .finally(() => {
+          this.getData();
+        });
+    },
+    notify(message) {
+      Notify.create({
+        message,
+        icon: 'thumb_up',
+        color: 'positive',
+        position: 'bottom-right',
+      });
     },
   },
 };
